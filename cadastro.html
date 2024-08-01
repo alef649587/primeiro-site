@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        form {
+            width: 300px;
+            margin: 200px auto;
+            text-align: center;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            width: 250px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <form id="cadastroForm">
+        <h3>Cadastro</h3>
+        <input type="text" placeholder="Nome de Usuário" id="username">
+        <input type="password" placeholder="Senha" id="password">
+        <input type="submit" value="Cadastrar">
+    </form>
+
+    <script>
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.length >= 3 && password.length >= 6) {
+                // Salvar os dados no Local Storage
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+
+                window.alert("Cadastro realizado com sucesso!");
+                // Redirecionar para a página de login
+                location.href = "login.html";
+            } else {
+                window.alert("Nome de usuário deve ter pelo menos 3 caracteres e senha deve ter pelo menos 6 caracteres.");
+            }
+        });
+    </script>
+</body>
+</html>
