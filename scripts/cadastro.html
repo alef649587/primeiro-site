@@ -80,13 +80,27 @@
             var password = document.getElementById('password').value;
 
             if (username.length >= 3 && password.length >= 6) {
-                // Salvar os dados no Local Storage
-                localStorage.setItem('username', username);
-                localStorage.setItem('password', password);
+                // Obter usuários existentes do Local Storage
+                var users = JSON.parse(localStorage.getItem('users')) || [];
 
-                window.alert("Cadastro realizado com sucesso!");
-                // Redirecionar para a página de login
-                location.href = "../index.html";
+                // Verificar se o usuário já existe
+                var userExists = users.some(function(user) {
+                    return user.username === username;
+                });
+
+                if (userExists) {
+                    window.alert("Nome de usuário já existe. Escolha outro nome.");
+                } else {
+                    // Adicionar novo usuário ao array
+                    users.push({ username: username, password: password });
+
+                    // Salvar de volta no Local Storage
+                    localStorage.setItem('users', JSON.stringify(users));
+
+                    window.alert("Cadastro realizado com sucesso!");
+                    // Redirecionar para a página de login
+                    location.href = "../index.html";
+                }
             } else {
                 window.alert("Nome de usuário deve ter pelo menos 3 caracteres e senha deve ter pelo menos 6 caracteres.");
             }
